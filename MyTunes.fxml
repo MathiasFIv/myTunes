@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <!-- Top: Playback Controls -->
+    <top>
+        <HBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <Button fx:id="playBtn" text="Play" />
+                <Button fx:id="pauseBtn" text="Pause" />
+                <Button fx:id="stopBtn" text="Stop" />
+                <Slider fx:id="volumeSlider" prefWidth="150" />
+                <Label text="Volume" />
+                <TextField fx:id="filterSearchBar" prefWidth="200" promptText="Search..." />
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Left: Playlists -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Playlists" />
+                <TableView fx:id="playlistsTable" prefHeight="300">
+                    <columns>
+                        <TableColumn text="Name" />
+                        <TableColumn text="Songs" />
+                        <TableColumn text="Time" />
+                    </columns>
+                </TableView>
+                <HBox alignment="CENTER" spacing="10">
+                    <children>
+                        <Button fx:id="playListNewBtn" text="New" />
+                        <Button fx:id="playListEditBtn" text="Edit" />
+                        <Button fx:id="playListDeleteBtn" text="Delete" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Center: Songs on Playlist -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Songs in Playlist" />
+                <TableView fx:id="songsOnPlaylistTable" prefHeight="300">
+                    <columns>
+                        <TableColumn text="No." />
+                        <TableColumn text="Title" />
+                    </columns>
+                </TableView>
+                <HBox alignment="CENTER" spacing="10">
+                    <children>
+                        <Button fx:id="songPlayListUpBtn" text="Move Up" />
+                        <Button fx:id="songPlayListDownBtn" text="Move Down" />
+                        <Button fx:id="songPlayListDeleteBtn" text="Delete" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <!-- Right: All Songs -->
+    <right>
+        <VBox alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <children>
+                <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="All Songs" />
+                <TableView fx:id="allSongsTable" prefHeight="300">
+                    <columns>
+                        <TableColumn text="Title" />
+                        <TableColumn text="Artist" />
+                        <TableColumn text="Category" />
+                        <TableColumn text="Time" />
+                    </columns>
+                </TableView>
+                <HBox alignment="CENTER" spacing="10">
+                    <children>
+                        <Button fx:id="allSongsNewBtn" text="New" />
+                        <Button fx:id="allSongsEditBtn" text="Edit" />
+                        <Button fx:id="allSongsDeleteBtn" text="Delete" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
