@@ -1,4 +1,4 @@
-package tv.safte.truemytunes;
+package tv.safte.truemytunes.GUI.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

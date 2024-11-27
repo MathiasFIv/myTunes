@@ -5,4 +5,8 @@ module tv.safte.truemytunes {
 
     opens tv.safte.truemytunes to javafx.fxml;
     exports tv.safte.truemytunes;
+    exports tv.safte.truemytunes.GUI;
+    opens tv.safte.truemytunes.GUI to javafx.fxml;
+    exports tv.safte.truemytunes.GUI.Controller;
+    opens tv.safte.truemytunes.GUI.Controller to javafx.fxml;
 }
