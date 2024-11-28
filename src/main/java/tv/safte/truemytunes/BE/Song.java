@@ -23,56 +23,29 @@ public class Song {
         return id;
     }
 
-    private void setId(int id) {
-        this.id = id;
-    }
-
     private String getTitle() {
         return title;
-    }
-
-    private void setTitle(String title) {
-        this.title = title;
     }
 
     private String getArtist() {
         return artist;
     }
 
-    private void setArtist(String artist) {
-        this.artist = artist;
-    }
 
     private String getCategory() {
         return category;
-    }
-
-    private void setCategory(String category) {
-        this.category = category;
     }
 
     private String getDuration() {
         return duration;
     }
 
-    private void setDuration(String duration) {
-        this.duration = duration;
-    }
-
     private String getsPath() {
         return sPath;
     }
 
-    private void setsPath(String sPath) {
-        this.sPath = sPath;
-    }
-
     private String getcPath() {
         return cPath;
-    }
-
-    private void setcPath(String cPath) {
-        this.cPath = cPath;
     }
 
     @Override
