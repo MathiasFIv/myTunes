@@ -31,7 +31,6 @@ public class Song {
         return artist;
     }
 
-
     private String getCategory() {
         return category;
     }
@@ -46,6 +45,34 @@ public class Song {
 
     private String getcPath() {
         return cPath;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
+    }
+
+    private void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    private void setCategory(String category) {
+        this.category = category;
+    }
+
+    private void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    private void setsPath(String sPath) {
+        this.sPath = sPath;
+    }
+
+    private void setcPath(String cPath) {
+        this.cPath = cPath;
     }
 
     @Override
