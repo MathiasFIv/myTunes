@@ -19,59 +19,59 @@ public class Song {
         this.cPath = cPath;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 
-    private String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    private String getArtist() {
+    public String getArtist() {
         return artist;
     }
 
-    private String getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    private String getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    private String getsPath() {
+    public String getsPath() {
         return sPath;
     }
 
-    private String getcPath() {
+    public String getcPath() {
         return cPath;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    private void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    private void setArtist(String artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 
-    private void setCategory(String category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    private void setDuration(String duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    private void setsPath(String sPath) {
+    public void setsPath(String sPath) {
         this.sPath = sPath;
     }
 
-    private void setcPath(String cPath) {
+    public void setcPath(String cPath) {
         this.cPath = cPath;
     }
 
