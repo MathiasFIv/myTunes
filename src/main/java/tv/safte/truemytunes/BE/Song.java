@@ -59,6 +59,10 @@ public class Song {
         return cPath;
     }
 
+    public String getAlbum() {
+        return album;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
