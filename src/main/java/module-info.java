@@ -1,6 +1,7 @@
 module tv.safte.truemytunes {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens tv.safte.truemytunes to javafx.fxml;
