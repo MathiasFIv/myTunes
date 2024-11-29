@@ -1,5 +1,15 @@
 package tv.safte.truemytunes.DAL;
 
+//Java Imports
+import tv.safte.truemytunes.BE.Song;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SongDAO_File {
 
     private static final String Song_Files = "data/Songname.txt";

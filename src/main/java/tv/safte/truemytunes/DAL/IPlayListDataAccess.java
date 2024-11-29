@@ -1,7 +1,7 @@
 package tv.safte.truemytunes.DAL;
 
 //Project Imports
-import tv.safte.truemytunes.BE.Song;
+import tv.safte.truemytunes.BE.PlayList;
 
 //Java import
 import java.util.List;
