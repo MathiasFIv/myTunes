@@ -31,6 +31,9 @@ public class Song {
         this.album = album;
     }
 
+    public Song(int id, String title, String artist, String category, String duration) {
+    }
+
     public int getId() {
         return id;
     }

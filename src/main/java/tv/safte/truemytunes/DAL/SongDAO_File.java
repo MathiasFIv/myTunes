@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,22 @@ public class SongDAO_File {
             return songs;
         }
 
-        public Song createSong (Song newSong) throws Exception {
+        public Song createSong (Song newSong) throws Exception
+        {
+            List<String> songs = Files.readAllLines(songPath);
+
+            if(songs.size() > 0){
+                // get next ID
+                String[] separatedLine = songs.get(songs.size() - 1).split("-");
+                int nextId = Integer.parseInt(separatedLine[0] + 1);
+                String newSongLine = nextId + "-" + newSong.getTitle() + "-" + newSong.getArtist() + "-" +
+                        newSong.getCategory() + "-" + newSong.getDuration() + "-" + newSong.getSPath() + "-" +
+                        newSong.getCPath();
+                Files.write(songPath, (newSongLine + "\r\n").getBytes(), APPEND);
+
+                return new Song(nextId, newSong.getTitle(), newSong.getArtist(), newSong.getCategory,
+                        newSong.getDuration(), newSong.getSPath(), newSong.getCPath());
+            }
             return null;
         }
 
