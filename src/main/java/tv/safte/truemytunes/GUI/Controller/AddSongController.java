@@ -1,5 +1,5 @@
 package tv.safte.truemytunes.GUI.Controller;
-
+// Java imports
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

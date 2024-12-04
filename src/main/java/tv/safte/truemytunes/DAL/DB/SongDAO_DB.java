@@ -1,8 +1,8 @@
 package tv.safte.truemytunes.DAL.DB;
-
+// Project imports
 import tv.safte.truemytunes.BE.Song;
 import tv.safte.truemytunes.DAL.ISongDataAccess;
-
+// Java imports
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,15 @@ public class SongDAO_DB implements ISongDataAccess {
     @Override
     public List<Song> getAllSongs() throws Exception {
 
+        // Konnekter til databasen
         DBConnector dbConnector = new DBConnector();
 
         ArrayList<Song> allSongs = new ArrayList<>();
 
+
         try (Connection conn = dbConnector.getConnection(); Statement stmt = conn.createStatement()) {
+
+            // Udfører en SELECT* forespørgsel for at hente rækker
             String sql = "SELECT * FROM schema_name.AllSongs";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -27,7 +31,7 @@ public class SongDAO_DB implements ISongDataAccess {
                 String title = rs.getString("title");
                 String category = rs.getString("category");
                 String duration = rs.getString("duration");
-                String sPath = rs.getString("path");
+                String sPath = rs.getString("spath");
                 String cPath = rs.getString("cpath");
 
                 Song song = new Song(id, artist, title, category, duration, sPath, cPath);
