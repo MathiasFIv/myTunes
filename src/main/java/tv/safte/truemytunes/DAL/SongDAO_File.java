@@ -10,6 +10,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.file.StandardOpenOption.APPEND;
+
 public class SongDAO_File {
 
     private static final String Song_Files = "data/Songname.txt";
@@ -41,37 +43,66 @@ public class SongDAO_File {
                 Song song = new Song(id, title, artist, category, duration, spath, cpath);
                 songs.add(song);
             }
-            return songs;
-        }
 
-        public Song createSong (Song newSong) throws Exception
+        }
+        return songs;
+    }
+
+    public Song createSong (Song newSong) throws Exception
+    {
+        List<String> songs = Files.readAllLines(songPath);
+
+        if(songs.size() > 0){
+            // get next ID
+            String[] separatedLine = songs.get(songs.size() - 1).split("-");
+            int nextId = Integer.parseInt(separatedLine[0]) + 1;
+            String newSongLine = nextId + "-" + newSong.getTitle() + "-" + newSong.getArtist() + "-" +
+                    newSong.getCategory() + "-" + newSong.getDuration() + "-" + newSong.getsPath() + "-" +
+                    newSong.getcPath();
+            Files.write(songPath, (newSongLine + "\r\n").getBytes(), APPEND);
+
+            return new Song(nextId, newSong.getTitle(), newSong.getArtist(), newSong.getCategory(),
+                    newSong.getDuration(), newSong.getsPath(), newSong.getcPath());
+        }
+        return null;
+    }
+
+    public void updateSong (Song song) throws Exception {
+        List<String> lines = Files.readAllLines(songPath);
+        List<String> updatedLines = new ArrayList<>();
+
+        for (String line : lines)
         {
-            List<String> songs = Files.readAllLines(songPath);
+            String[] separatedLine = line.split("-");
+            int id = Integer.parseInt(separatedLine[0]);
 
-            if(songs.size() > 0){
-                // get next ID
-                String[] separatedLine = songs.get(songs.size() - 1).split("-");
-                int nextId = Integer.parseInt(separatedLine[0] + 1);
-                String newSongLine = nextId + "-" + newSong.getTitle() + "-" + newSong.getArtist() + "-" +
-                        newSong.getCategory() + "-" + newSong.getDuration() + "-" + newSong.getSPath() + "-" +
-                        newSong.getCPath();
-                Files.write(songPath, (newSongLine + "\r\n").getBytes(), APPEND);
-
-                return new Song(nextId, newSong.getTitle(), newSong.getArtist(), newSong.getCategory,
-                        newSong.getDuration(), newSong.getSPath(), newSong.getCPath());
+            if (id == song.getId())
+            {
+                line = song.getId() + "-" + song.getTitle() + "-" + song.getArtist() + "-" + song.getCategory() +
+                        "-" + song.getDuration() + "-" + song.getsPath() + "-" + song.getcPath();
             }
-            return null;
+            updatedLines.add(line);
         }
-
-        public void updateSong (Song song) throws Exception {
-            return null;
-        }
-
-        public void deleteSong (Song song) throws Exception {
-            return null;
-        }
+        Files.write(songPath, updatedLines);
     }
+
+    public void deleteSong (Song song) throws Exception {
+        List<String> lines = Files.readAllLines(songPath);
+        List<String> updatedLines = new ArrayList<>();
+
+        for (String line : lines)
+        {
+            String[] separatedLine = line.split("-");
+            int id = Integer.parseInt(separatedLine[0]);
+
+            if (id != song.getId())
+            {
+                updatedLines.add(line);
+            }
+        }
+        Files.write(songPath, updatedLines);
     }
+}
 
 
 
