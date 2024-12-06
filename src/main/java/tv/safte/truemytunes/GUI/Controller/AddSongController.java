@@ -3,6 +3,7 @@ package tv.safte.truemytunes.GUI.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AddSongController {
 
@@ -37,6 +38,16 @@ public class AddSongController {
     @FXML
     private void onCancel() {
         // Handle cancel action
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
         System.out.println("Action cancelled");
+    }
+    public void setSongData(Object song) {
+        // Set the song data to the fields
+        // Assuming song is an instance of a Song class with appropriate getters
+        titleField.setText(song.getTitle());
+        artistField.setText(song.getArtist());
+        categoryField.setText(song.getCategory());
+        timeField.setText(song.getTime());
     }
 }
