@@ -38,7 +38,8 @@ public class SongDAO_DB implements ISongDataAccess {
                 allSongs.add(song);
             }
             return allSongs;
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Error getting all songs", ex);
         }

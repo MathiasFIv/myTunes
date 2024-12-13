@@ -11,7 +11,7 @@ public class PlayList {
         this.creator = creator;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 
@@ -19,7 +19,7 @@ public class PlayList {
         this.id = id;
     }
 
-    private String getPlayListName() {
+    public String getPlayListName() {
         return playListName;
     }
 
@@ -27,7 +27,7 @@ public class PlayList {
         this.playListName = playListName;
     }
 
-    private String getCreator() {
+    public String getCreator() {
         return creator;
     }
 
