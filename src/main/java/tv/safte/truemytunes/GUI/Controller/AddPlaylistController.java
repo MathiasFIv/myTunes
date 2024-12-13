@@ -36,6 +36,7 @@ public class AddPlaylistController {
         // Handle cancel action
         System.out.println("Action cancelled");
     }
+    /*
     public void setPlaylistData(Object playlist) {
         // Set the playlist data to the fields
         // Assuming playlist is an instance of a Playlist class with appropriate getters
@@ -44,4 +45,6 @@ public class AddPlaylistController {
         descriptionField.setText(playlist.getDescription());
 
     }
+
+     */
 }

@@ -1,22 +1,23 @@
 package tv.safte.truemytunes.DAL.DB;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-// Java imports
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
-public class DBConnector{
+public class DBConnector {
 
-    private static final String PROP_FILE = "config/config.settings";
+    private static final String PROP_FILE = "config/config.sittings";
     private SQLServerDataSource dataSource;
 
     public DBConnector() throws IOException {
         Properties databaseProperties = new Properties();
-        databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
+        try (FileInputStream fis = new FileInputStream(new File(PROP_FILE))) {
+            databaseProperties.load(fis);
+        }
 
         dataSource = new SQLServerDataSource();
         dataSource.setServerName(databaseProperties.getProperty("Server"));
@@ -27,16 +28,20 @@ public class DBConnector{
         dataSource.setTrustServerCertificate(true);
     }
 
-    public Connection getConnection() throws SQLServerException {
+    public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
 
-
-    public static void main(String[] args) throws Exception {
-        DBConnector databaseConnector = new DBConnector();
-
-        try (Connection connection = databaseConnector.getConnection()) {
-            System.out.println("Is it open? " + !connection.isClosed());
-        } //Connection gets closed here
+    public static void main(String[] args) {
+        try {
+            DBConnector databaseConnector = new DBConnector();
+            try (Connection connection = databaseConnector.getConnection()) {
+                System.out.println("Is it open? " + !connection.isClosed());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
