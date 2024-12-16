@@ -1,3 +1,4 @@
+
 package tv.safte.truemytunes.DAL.DB;
 // Projects import
 import tv.safte.truemytunes.BE.PlayList;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class PlayListDAO_DB {
 
-    @Override
+    //@Override
     public List<PlayList> getAllPlayLists() throws Exception, IOException {
         DBConnector dbConnector = new DBConnector();
         List<PlayList> playLists = new ArrayList<>();
@@ -33,13 +34,13 @@ public class PlayListDAO_DB {
 
     }
 
-    @Override
+
     public PlayList createPlaylist(PlayList newplaylist) throws Exception {
         DBConnector dbConnector = new DBConnector();
         String sql = "INSERT INTO Playlists(Playlist_id, PlaylistTitle, Creator) VALUES (?,?,?)";
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, newplaylist.getId());
+            stmt.setString(1, String.valueOf(newplaylist.getId()));
             stmt.setString(2, newplaylist.getPlayListName());
             stmt.setString(3, newplaylist.getCreator());
             stmt.executeUpdate();
@@ -59,13 +60,13 @@ public class PlayListDAO_DB {
         }
     }
 
-    @Override
+
     public void updatePlaylist(PlayList playlist) throws Exception {
         DBConnector dbConnector = new DBConnector();
         String sql = "UPDATE Playlists SET PlaylistTitle = ?, Creator = ? WHERE Playlist_id = ?";
 
         try (Connection conn = dbConnector.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, playlist.getId());
+            stmt.setString(1, String.valueOf(playlist.getId()));
             stmt.setString(2, playlist.getPlayListName());
             stmt.setString(3, playlist.getCreator());
             stmt.executeUpdate();

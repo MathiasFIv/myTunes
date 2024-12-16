@@ -40,7 +40,7 @@ public class SongDAO_File {
                 for (int i = 7; i < separatedLine.length; i++) {
                     cpath += "-" + separatedLine[i];
                 }
-                Song song = new Song(id, title, artist, category, duration, spath, cpath);
+                Song song = new Song(id, title, artist, category, duration, spath);
                 songs.add(song);
             }
 
@@ -62,7 +62,7 @@ public class SongDAO_File {
             Files.write(songPath, (newSongLine + "\r\n").getBytes(), APPEND);
 
             return new Song(nextId, newSong.getTitle(), newSong.getArtist(), newSong.getCategory(),
-                    newSong.getDuration(), newSong.getsPath(), newSong.getcPath());
+                    newSong.getDuration(), newSong.getsPath());
         }
         return null;
     }

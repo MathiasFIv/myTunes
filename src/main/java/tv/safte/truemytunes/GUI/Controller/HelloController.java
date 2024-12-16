@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import tv.safte.truemytunes.BE.PlayList;
+import tv.safte.truemytunes.BE.Song;
 
 
 public class HelloController {
@@ -168,7 +170,7 @@ public class HelloController {
 
                 // Get the controller and pass the selected song data
                 AddSongController controller = fxmlLoader.getController();
-                controller.setSongData(selectedSong);
+                controller.setSongData((Song) selectedSong);
 
                 Stage stage = new Stage();
                 stage.setTitle("Edit Song");
@@ -209,7 +211,7 @@ public class HelloController {
     private void onEditPlaylist() {
         // Handle edit playlist action
 
-        Object selectedPlaylist = playlistsTable.getSelectionModel().getSelectedItem();
+        PlayList selectedPlaylist = (PlayList) playlistsTable.getSelectionModel().getSelectedItem();
         if (selectedPlaylist != null) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tv/safte/truemytunes/GUI/View/AddPlaylist.fxml"));
@@ -275,8 +277,8 @@ public class HelloController {
     @FXML
     private void onAddToPlaylist() {
         // Handle add song to playlist action
-        Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
-        Object selectedPlaylist = playlistsTable.getSelectionModel().getSelectedItem();
+        Song selectedSong = (Song) allSongsTable.getSelectionModel().getSelectedItem();
+        PlayList selectedPlaylist = (PlayList) playlistsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null && selectedPlaylist != null) {
             // Assuming Playlist class has a method to add songs
             selectedPlaylist.addSong(selectedSong);

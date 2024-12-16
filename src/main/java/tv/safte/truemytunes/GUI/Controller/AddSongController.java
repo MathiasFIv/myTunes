@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tv.safte.truemytunes.BE.Song;
+
+import java.io.*;
 
 public class AddSongController {
 
@@ -42,12 +45,13 @@ public class AddSongController {
         stage.close();
         System.out.println("Action cancelled");
     }
-    public void setSongData(Object song) {
+
+    public void setSongData(Song song) {
         // Set the song data to the fields
         // Assuming song is an instance of a Song class with appropriate getters
         titleField.setText(song.getTitle());
         artistField.setText(song.getArtist());
         categoryField.setText(song.getCategory());
-        timeField.setText(song.getTime());
+        timeField.setText(song.getDuration());
     }
 }

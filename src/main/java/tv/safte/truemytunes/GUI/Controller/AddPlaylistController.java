@@ -3,6 +3,7 @@ package tv.safte.truemytunes.GUI.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import tv.safte.truemytunes.BE.PlayList;
 
 public class AddPlaylistController {
 
@@ -36,15 +37,18 @@ public class AddPlaylistController {
         // Handle cancel action
         System.out.println("Action cancelled");
     }
-    /*
-    public void setPlaylistData(Object playlist) {
+
+
+    public void setPlaylistData(PlayList playlist) {
         // Set the playlist data to the fields
         // Assuming playlist is an instance of a Playlist class with appropriate getters
-        playlistIdField.setText(playlist.getId());
-        nameField.setText(playlist.getName());
-        descriptionField.setText(playlist.getDescription());
+        playlistIdField.setText(String.valueOf(playlist.getId()));
+        nameField.setText(playlist.getPlayListName());
+        descriptionField.setText(playlist.getCreator());
 
     }
 
-     */
+
+
+
 }

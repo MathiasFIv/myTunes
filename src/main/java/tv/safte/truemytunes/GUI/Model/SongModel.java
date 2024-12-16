@@ -21,7 +21,7 @@ public class SongModel {
       // Laver tom observable list
       songsToBeHeard = FXCollections.observableArrayList();
       // Henter film fra datakilden og udfylder observable list
-      songsToBeHeard.addAll(SongManager.getAllSongs());
+      songsToBeHeard.addAll(songManager.getAllSongs());
     }
 
     // Giver adgang til observable list over film

@@ -32,9 +32,9 @@ public class SongDAO_DB implements ISongDataAccess {
                 String category = rs.getString("category");
                 String duration = rs.getString("duration");
                 String sPath = rs.getString("spath");
-                String cPath = rs.getString("cpath");
+                //String cPath = rs.getString("cpath");
 
-                Song song = new Song(id, artist, title, category, duration, sPath, cPath);
+                Song song = new Song(id, artist, title, category, duration, sPath);
                 allSongs.add(song);
             }
             return allSongs;

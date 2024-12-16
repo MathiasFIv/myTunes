@@ -11,7 +11,7 @@ import java.util.Properties;
 public class DBConnector {
 
     private static final String PROP_FILE = "config/config.sittings";
-    private SQLServerDataSource dataSource;
+    private static SQLServerDataSource dataSource;
 
     public DBConnector() throws IOException {
         Properties databaseProperties = new Properties();
@@ -28,7 +28,7 @@ public class DBConnector {
         dataSource.setTrustServerCertificate(true);
     }
 
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
 

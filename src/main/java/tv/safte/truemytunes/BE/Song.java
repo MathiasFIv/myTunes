@@ -10,14 +10,14 @@ public class Song {
     private String cPath; //Cover path
     private String album;
 
-    public Song(int id, String title, String artist, String category, String duration, String sPath, String cPath) {
+    public Song(int id, String title, String artist, String category, String duration, String sPath) {
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.category = category;
         this.duration = duration;
         this.sPath = sPath;
-        this.cPath = cPath;
+        //this.cPath = cPath;
     }
 
     public Song(int id, String title, String artist, String category, String duration, String sPath, String cPath, String album) {
