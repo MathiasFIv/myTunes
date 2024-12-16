@@ -1,57 +1,78 @@
 package tv.safte.truemytunes.GUI.Controller;
 // Java imports
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import tv.safte.truemytunes.BE.Song;
 
-import java.io.*;
+import java.io.File;
 
 public class AddSongController {
 
     @FXML
     private TextField titleField;
-
     @FXML
     private TextField artistField;
-
     @FXML
     private TextField categoryField;
-
     @FXML
     private TextField timeField;
+    @FXML
+    private TextField filePathField;
+
+    private Stage dialogStage;
+    private boolean saveClicked = false;
 
     @FXML
-    private Button saveBtn;
+    private void initialize() {
+    }
 
-    @FXML
-    private Button cancelBtn;
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public boolean isSaveClicked() {
+        return saveClicked;
+    }
 
     @FXML
     private void onSave() {
+        // Validate file path
+        if (!isValidFilePath(filePathField.getText())) {
+            showAlert("Invalid File Path", "The file path is not valid. Please enter a valid file path.");
+            return;
+        }
+
         // Handle save action
         String title = titleField.getText();
         String artist = artistField.getText();
         String category = categoryField.getText();
         String time = timeField.getText();
-        System.out.println("Song saved: " + title + " by " + artist);
+        String filePath = filePathField.getText();
+
+        // Save the song details including the file path
+
+
+        saveClicked = true;
+        dialogStage.close();
     }
 
     @FXML
     private void onCancel() {
-        // Handle cancel action
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
-        System.out.println("Action cancelled");
+        dialogStage.close();
     }
 
-    public void setSongData(Song song) {
-        // Set the song data to the fields
-        // Assuming song is an instance of a Song class with appropriate getters
-        titleField.setText(song.getTitle());
-        artistField.setText(song.getArtist());
-        categoryField.setText(song.getCategory());
-        timeField.setText(song.getDuration());
+    private boolean isValidFilePath(String filePath) {
+        File file = new File(filePath);
+        return file.exists() && file.isFile();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
