@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import tv.safte.truemytunes.BLL.SongManager;
 
 
 public class HelloController {
@@ -34,6 +35,7 @@ public class HelloController {
 
     private MediaPlayer mediaPlayer;
     private FilteredList<Object> filteredAllSongs, filteredPlaylists, filteredSongsOnPlaylist;
+    private SongManager songManager = new SongManager();
 
     public void initialize() {
         // Initialize MediaPlayer with a sample media file
@@ -81,10 +83,6 @@ public class HelloController {
         // Set songPlayListDeleteBtn action
         songPlayListDeleteBtn.setOnAction(event -> onSongInPlaylistDelete());
 
-
-
-
-
         // Initialize filtered lists
         filteredAllSongs = new FilteredList<>(FXCollections.observableArrayList(allSongsTable.getItems()), p -> true);
         filteredPlaylists = new FilteredList<>(FXCollections.observableArrayList(playlistsTable.getItems()), p -> true);
@@ -111,10 +109,6 @@ public class HelloController {
             });
         });
 
-
-
-
-
         // Add listeners for TableView item selection
         allSongsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -135,12 +129,10 @@ public class HelloController {
         });
     }
 
-
-
     private void playSelectedSong() {
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
-            String filePath = songService.getFilePath(selectedSong);
+            String filePath = songManager.getFilePath(selectedSong);
             if (filePath != null) {
                 Media media = new Media(getClass().getResource(filePath).toExternalForm());
                 mediaPlayer = new MediaPlayer(media);
@@ -148,11 +140,6 @@ public class HelloController {
             }
         }
     }
-
-
-
-
-
 
     @FXML
     private void onAdd() {
@@ -171,7 +158,6 @@ public class HelloController {
 
     @FXML
     private void onEditSong() {
-
         // Handle edit song action
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
@@ -195,7 +181,6 @@ public class HelloController {
 
     @FXML
     private void onDelete() {
-
         // Handle delete song action
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
@@ -221,7 +206,6 @@ public class HelloController {
     @FXML
     private void onEditPlaylist() {
         // Handle edit playlist action
-
         Object selectedPlaylist = playlistsTable.getSelectionModel().getSelectedItem();
         if (selectedPlaylist != null) {
             try {
@@ -273,7 +257,6 @@ public class HelloController {
             songsOnPlaylistTable.getItems().add(selectedIndex + 1, selectedSong);
             songsOnPlaylistTable.getSelectionModel().select(selectedIndex + 1);
         }
-
     }
 
     @FXML
