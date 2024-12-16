@@ -274,7 +274,7 @@ public class HelloController {
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         Object selectedPlaylist = playlistsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null && selectedPlaylist != null) {
-            // Assuming Playlist class has a method to add songs
+
             selectedPlaylist.addSong(selectedSong);
             // Refresh the songsOnPlaylistTable to show the updated list
             songsOnPlaylistTable.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));

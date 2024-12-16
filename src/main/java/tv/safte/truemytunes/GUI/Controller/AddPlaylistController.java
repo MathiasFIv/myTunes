@@ -39,7 +39,7 @@ public class AddPlaylistController {
 
     public void setPlaylistData(Object playlist) {
         // Set the playlist data to the fields
-        // Assuming playlist is an instance of a Playlist class with appropriate getters
+
         playlistIdField.setText(playlist.getId());
         nameField.setText(playlist.getName());
         descriptionField.setText(playlist.getDescription());
