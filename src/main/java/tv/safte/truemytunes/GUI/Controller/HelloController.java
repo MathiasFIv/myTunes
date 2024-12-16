@@ -46,7 +46,7 @@ public class HelloController {
         });
 
         // Set play button action
-        playBtn.setOnAction(event -> mediaPlayer.play());
+        playBtn.setOnAction(event -> playSelectedSong());
 
         // Set pause button action
         pauseBtn.setOnAction(event -> mediaPlayer.pause());
@@ -137,6 +137,19 @@ public class HelloController {
 
 
 
+    private void playSelectedSong() {
+        Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
+        if (selectedSong != null) {
+            String filePath = songService.getFilePath(selectedSong);
+            if (filePath != null) {
+                Media media = new Media(getClass().getResource(filePath).toExternalForm());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+            }
+        }
+    }
+
+
 
 
 
@@ -158,7 +171,7 @@ public class HelloController {
 
     @FXML
     private void onEditSong() {
-        // Handle edit song action
+
         // Handle edit song action
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
@@ -182,7 +195,7 @@ public class HelloController {
 
     @FXML
     private void onDelete() {
-        // Handle delete song action
+
         // Handle delete song action
         Object selectedSong = allSongsTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
