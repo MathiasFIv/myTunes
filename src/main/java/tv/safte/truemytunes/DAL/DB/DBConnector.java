@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class DBConnector {
 
-    private static final String PROP_FILE = "config/config.sittings";
+    private static final String PROP_FILE = "config/config.settings";
     private static SQLServerDataSource dataSource;
 
     public DBConnector() throws IOException {

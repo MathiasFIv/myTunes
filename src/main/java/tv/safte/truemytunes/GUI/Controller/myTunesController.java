@@ -1,16 +1,15 @@
 package tv.safte.truemytunes.GUI.Controller;
 
 //Java Imports
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
@@ -24,10 +23,14 @@ import java.net.URL;
 
 public class myTunesController {
 
+
+    //buttons
     @FXML
     private Button playBtn, pauseBtn, stopBtn, allSongsAddBtn, allSongsEditBtn, allSongsDeleteBtn;
     @FXML
     private Button playListNewBtn, playListEditBtn, playListDeleteBtn, songPlayListUpBtn, songPlayListDownBtn, songPlayListDeleteBtn, addToPlaylistBtn;
+
+    //Slider
     @FXML
     private Slider volumeSlider;
     @FXML
@@ -40,8 +43,9 @@ public class myTunesController {
 
     @FXML
     private TableView<Song> songsOnPlaylistTable;
+
     @FXML
-    private Label welcomeText;
+    private TableColumn<Song, String> colTitle, colArtist, colCategory, colTime,allSongsDurationCol;
 
     private MediaPlayer mediaPlayer;
     private FilteredList<Song> filteredAllSongs, filteredSongsOnPlaylist;
@@ -49,9 +53,19 @@ public class myTunesController {
 
     private SongManager songManager;
 
+
     public void initialize() {
 
         songManager = new SongManager();
+        loadAllSongs();
+
+        // Initialize columns
+        colTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
+        colArtist.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArtist()));
+        colCategory.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
+        colTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDuration()));
+
+
 
 
 
@@ -145,6 +159,14 @@ public class myTunesController {
         });
     }
 
+    private void loadAllSongs() {
+        try {
+            ObservableList<Song> allSongs = FXCollections.observableArrayList(songManager.getAllSongs());
+            allSongsTable.setItems(allSongs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

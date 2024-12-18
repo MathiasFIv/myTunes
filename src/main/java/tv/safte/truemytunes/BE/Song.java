@@ -1,5 +1,7 @@
 package tv.safte.truemytunes.BE;
 
+import javafx.beans.value.ObservableValue;
+
 public class Song {
     private int id;
     private String title;
@@ -101,4 +103,6 @@ public class Song {
     public String toString() {
         return id + ", " + title + ", " + artist + ", " + category + ", " + duration + ", " + sPath + ", " + cPath;
     }
+
+
 }

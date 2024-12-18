@@ -6,6 +6,7 @@ import tv.safte.truemytunes.DAL.ISongDataAccess;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 public class SongDAO_DB implements ISongDataAccess {
 
@@ -29,7 +30,7 @@ public class SongDAO_DB implements ISongDataAccess {
                 int id = rs.getInt("id");
                 String artist = rs.getString("artist");
                 String title = rs.getString("title");
-                String category = rs.getString("category");
+                String category = rs.getString("genre");
                 String duration = rs.getString("duration");
                 String sPath = rs.getString("spath");
                 //String cPath = rs.getString("cpath");
