@@ -17,11 +17,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import tv.safte.truemytunes.BE.PlayList;
 import tv.safte.truemytunes.BE.Song;
+import tv.safte.truemytunes.BLL.SongManager;
 
 import java.net.URL;
 
 
-public class HelloController {
+public class myTunesController {
 
     @FXML
     private Button playBtn, pauseBtn, stopBtn, allSongsAddBtn, allSongsEditBtn, allSongsDeleteBtn;
@@ -32,26 +33,27 @@ public class HelloController {
     @FXML
     private TextField filterSearchBar;
     @FXML
-    private TableView<Object> allSongsTable, playlistsTable, songsOnPlaylistTable;
+    private TableView<Song> allSongsTable;
+
+    @FXML
+    private TableView<PlayList> playlistsTable;
+
+    @FXML
+    private TableView<Song> songsOnPlaylistTable;
     @FXML
     private Label welcomeText;
 
     private MediaPlayer mediaPlayer;
-    private FilteredList<Object> filteredAllSongs, filteredPlaylists, filteredSongsOnPlaylist;
+    private FilteredList<Song> filteredAllSongs, filteredSongsOnPlaylist;
+    private FilteredList<PlayList>  filteredPlaylists;
+
+    private SongManager songManager;
 
     public void initialize() {
-        // Initialize MediaPlayer with a sample media file
-        URL resource = getClass().getResource("/tv/safte/truemytunes/data/Musikdata.Nummere/1.mp3");
-        if (resource == null) {
-            System.err.println("Resource not found: /tv/safte/truemytunes/data/Musikdata.Nummere/1.mp3");
-        } else {
-            Media media = new Media(resource.toExternalForm());
-            mediaPlayer = new MediaPlayer(media);
-            // Bind the volume slider to the media player's volume property
-            volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
-            });
-        }
+
+        songManager = new SongManager();
+
+
 
         // Set play button action
         playBtn.setOnAction(event -> mediaPlayer.play());
@@ -251,7 +253,7 @@ public class HelloController {
         // Handle move song up in playlist action
         int selectedIndex = songsOnPlaylistTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex > 0) {
-            Object selectedSong = songsOnPlaylistTable.getItems().get(selectedIndex);
+            Song selectedSong = songsOnPlaylistTable.getItems().get(selectedIndex);
             songsOnPlaylistTable.getItems().remove(selectedIndex);
             songsOnPlaylistTable.getItems().add(selectedIndex - 1, selectedSong);
             songsOnPlaylistTable.getSelectionModel().select(selectedIndex - 1);
@@ -263,7 +265,7 @@ public class HelloController {
         // Handle move song down in playlist action
         int selectedIndex = songsOnPlaylistTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex < songsOnPlaylistTable.getItems().size() - 1) {
-            Object selectedSong = songsOnPlaylistTable.getItems().get(selectedIndex);
+            Song selectedSong = songsOnPlaylistTable.getItems().get(selectedIndex);
             songsOnPlaylistTable.getItems().remove(selectedIndex);
             songsOnPlaylistTable.getItems().add(selectedIndex + 1, selectedSong);
             songsOnPlaylistTable.getSelectionModel().select(selectedIndex + 1);
@@ -274,7 +276,7 @@ public class HelloController {
     @FXML
     private void onSongInPlaylistDelete() {
         // Handle delete song from playlist action
-        Object selectedSong = songsOnPlaylistTable.getSelectionModel().getSelectedItem();
+        Song selectedSong = songsOnPlaylistTable.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             songsOnPlaylistTable.getItems().remove(selectedSong);
         }

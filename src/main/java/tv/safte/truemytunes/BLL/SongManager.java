@@ -13,7 +13,8 @@ public class SongManager {
     private ISongDataAccess songDAO;
 
     // Initialiserer SongDAO_DB klassen og implementerer ISongDataAccess interface
-    public SongManager(){
+    public SongManager()
+    {
         songDAO = new SongDAO_DB();
     }
 
