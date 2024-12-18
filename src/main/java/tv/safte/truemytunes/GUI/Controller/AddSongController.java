@@ -1,10 +1,12 @@
+
 package tv.safte.truemytunes.GUI.Controller;
-// Java imports
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import tv.safte.truemytunes.BE.Song;
+import tv.safte.truemytunes.DAL.DB.SongDAO_DB;
 
 import java.io.File;
 
@@ -23,6 +25,7 @@ public class AddSongController {
 
     private Stage dialogStage;
     private boolean saveClicked = false;
+    private SongDAO_DB songDAO = new SongDAO_DB();
 
     @FXML
     private void initialize() {
@@ -44,15 +47,24 @@ public class AddSongController {
             return;
         }
 
-        // Handle save action
+        // Retrieve data from text fields
         String title = titleField.getText();
         String artist = artistField.getText();
         String category = categoryField.getText();
         String time = timeField.getText();
         String filePath = filePathField.getText();
 
-        // Save the song details including the file path
+        // Create a new Song object
+        Song song = new Song(title, artist, category, time, filePath);
 
+        // Insert the song into the PlayList table in the SQL database
+        try {
+            songDAO.createSong(song);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Database Error", "An error occurred while saving the song to the database.");
+            return;
+        }
 
         saveClicked = true;
         dialogStage.close();
@@ -74,5 +86,13 @@ public class AddSongController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setSongData(Song selectedSong) {
+        titleField.setText(selectedSong.getTitle());
+        artistField.setText(selectedSong.getArtist());
+        categoryField.setText(selectedSong.getCategory());
+        timeField.setText(selectedSong.getTime());
+        filePathField.setText(selectedSong.getFilePath());
     }
 }
