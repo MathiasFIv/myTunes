@@ -18,6 +18,8 @@ import javafx.scene.media.MediaPlayer;
 import tv.safte.truemytunes.BE.PlayList;
 import tv.safte.truemytunes.BE.Song;
 
+import java.net.URL;
+
 
 public class HelloController {
 
@@ -39,13 +41,17 @@ public class HelloController {
 
     public void initialize() {
         // Initialize MediaPlayer with a sample media file
-        Media media = new Media(getClass().getResource("/path/to/your/media/file.mp3").toExternalForm());
-        mediaPlayer = new MediaPlayer(media);
-
-        // Bind the volume slider to the media player's volume property
-        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
-        });
+        URL resource = getClass().getResource("/tv/safte/truemytunes/data/Musikdata.Nummere/1.mp3");
+        if (resource == null) {
+            System.err.println("Resource not found: /tv/safte/truemytunes/data/Musikdata.Nummere/1.mp3");
+        } else {
+            Media media = new Media(resource.toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            // Bind the volume slider to the media player's volume property
+            volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                mediaPlayer.setVolume(newValue.doubleValue() / 100.0);
+            });
+        }
 
         // Set play button action
         playBtn.setOnAction(event -> mediaPlayer.play());
@@ -196,7 +202,7 @@ public class HelloController {
     private void onNew() {
         // Handle new playlist action
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tv/safte/truemytunes/GUI/View/AddPlaylist.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/data/Musikdata.Nummere/1.mp3"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Add Playlist");

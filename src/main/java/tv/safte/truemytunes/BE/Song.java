@@ -34,6 +34,9 @@ public class Song {
     public Song(int id, String title, String artist, String category, String duration) {
     }
 
+    public Song(String title, String artist, String category, String time, String filePath) {
+    }
+
     public int getId() {
         return id;
     }

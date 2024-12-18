@@ -92,7 +92,7 @@ public class AddSongController {
         titleField.setText(selectedSong.getTitle());
         artistField.setText(selectedSong.getArtist());
         categoryField.setText(selectedSong.getCategory());
-        timeField.setText(selectedSong.getTime());
-        filePathField.setText(selectedSong.getFilePath());
+        timeField.setText(selectedSong.getDuration());
+        filePathField.setText(selectedSong.getsPath());
     }
 }
