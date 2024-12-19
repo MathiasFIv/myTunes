@@ -1,4 +1,3 @@
-
 package tv.safte.truemytunes.GUI.Controller;
 
 import javafx.fxml.FXML;
@@ -40,35 +39,46 @@ public class AddSongController {
     }
 
     @FXML
-    private void onSave() {
-        // Validate file path
-        if (!isValidFilePath(filePathField.getText())) {
-            showAlert("Invalid File Path", "The file path is not valid. Please enter a valid file path.");
-            return;
-        }
-
-        // Retrieve data from text fields
-        String title = titleField.getText();
-        String artist = artistField.getText();
-        String category = categoryField.getText();
-        String time = timeField.getText();
-        String filePath = filePathField.getText();
-
-        // Create a new Song object
-        Song song = new Song(title, artist, category, time, filePath);
-
-        // Insert the song into the PlayList table in the SQL database
-        try {
-            songDAO.createSong(song);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Database Error", "An error occurred while saving the song to the database.");
-            return;
-        }
-
-        saveClicked = true;
-        dialogStage.close();
+private void onSave() {
+    // Validate file path
+    String filePath = filePathField.getText();
+    if (!isValidFilePath(filePath)) {
+        showAlert("Invalid File Path", "The file path is not valid. Please enter a valid file path.");
+        return;
     }
+
+    // Retrieve data from text fields
+    String title = titleField.getText();
+    String artist = artistField.getText();
+    String category = categoryField.getText();
+    String time = timeField.getText();
+
+    // Log the retrieved data
+    System.out.println("Title: " + title);
+    System.out.println("Artist: " + artist);
+    System.out.println("Category: " + category);
+    System.out.println("Time: " + time);
+    System.out.println("File Path: " + filePath);
+
+    // Create a new Song object
+    Song song = new Song(0, title, artist, category, time, filePath);
+
+    // Log the song object
+    System.out.println("Created Song: " + song);
+
+    // Insert the song into the database
+    try {
+        songDAO.createSong(song);
+        System.out.println("Song saved to database successfully.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        showAlert("Database Error", "An error occurred while saving the song to the database.");
+        return;
+    }
+
+    saveClicked = true;
+    dialogStage.close();
+}
 
     @FXML
     private void onCancel() {

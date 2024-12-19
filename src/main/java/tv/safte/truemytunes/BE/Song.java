@@ -101,7 +101,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return id + ", " + title + ", " + artist + ", " + category + ", " + duration + ", " + sPath + ", " + cPath;
+        return id + ", " + title + ", " + artist + ", " + category + ", " + duration + ", " + sPath;
     }
 
 

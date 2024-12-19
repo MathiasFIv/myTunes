@@ -173,20 +173,30 @@ public class myTunesController {
 
 
 
-    @FXML
-    private void onAdd() {
-        // Handle add song action
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tv/safte/truemytunes/GUI/View/AddSong.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Add Song");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+@FXML
+private void onAdd() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tv/safte/truemytunes/AddSong.fxml"));
+        Parent root = fxmlLoader.load();
+
+        // Get the controller and set the dialog stage
+        AddSongController controller = fxmlLoader.getController();
+        Stage stage = new Stage();
+        controller.setDialogStage(stage);
+
+        stage.setTitle("Add Song");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
+        // Check if the save button was clicked
+        if (controller.isSaveClicked()) {
+            // Refresh the allSongsTable with the new song
+            loadAllSongs();
         }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 
     @FXML
     private void onEditSong() {
