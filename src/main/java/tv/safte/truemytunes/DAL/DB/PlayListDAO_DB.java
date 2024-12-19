@@ -1,8 +1,6 @@
-
 package tv.safte.truemytunes.DAL.DB;
-// Projects import
+
 import tv.safte.truemytunes.BE.PlayList;
-// Java imports
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,39 +8,35 @@ import java.util.List;
 
 public class PlayListDAO_DB {
 
-    //@Override
-    public List<PlayList> getAllPlayLists() throws Exception, IOException {
+    public PlayList getPlayListById(int id) throws Exception, IOException {
         DBConnector dbConnector = new DBConnector();
-        List<PlayList> playLists = new ArrayList<>();
+        PlayList playList = null;
 
         try (Connection conn = dbConnector.getConnection();
-             Statement stmt = conn.createStatement()) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT Playlist_id, PlaylistTitle, Creator FROM Playlists WHERE Playlist_id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
 
-            String sql = "SELECT Playlist_id, PlaylistTitle, Creator FROM Playlists";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
+            if (rs.next()) {
                 int Playlist_id = rs.getInt("Playlist_id");
-                int PlaylistTitle = rs.getInt("PlaylistTitle");
-                int Creator = rs.getInt("Creator");
+                String PlaylistTitle = rs.getString("PlaylistTitle");
+                String Creator = rs.getString("Creator");
+                playList = new PlayList(Playlist_id, PlaylistTitle, Creator);
             }
-            return playLists;
+            return playList;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new Exception("Error getting playlists", ex);
+            throw new Exception("Error getting playlist", ex);
         }
-
     }
-
 
     public PlayList createPlaylist(PlayList newplaylist) throws Exception {
         DBConnector dbConnector = new DBConnector();
-        String sql = "INSERT INTO Playlists(Playlist_id, PlaylistTitle, Creator) VALUES (?,?,?)";
+        String sql = "INSERT INTO Playlists(PlaylistTitle, Creator) VALUES (?, ?)";
         try (Connection conn = dbConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, String.valueOf(newplaylist.getId()));
-            stmt.setString(2, newplaylist.getPlayListName());
-            stmt.setString(3, newplaylist.getCreator());
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, newplaylist.getPlayListName());
+            stmt.setString(2, newplaylist.getCreator());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -52,37 +46,34 @@ public class PlayListDAO_DB {
                 id = rs.getInt(1);
             }
 
-            PlayList createdPlaylist = new PlayList(id, newplaylist.getPlayListName(), newplaylist.getCreator());
-            return createdPlaylist;
+            return new PlayList(id, newplaylist.getPlayListName(), newplaylist.getCreator());
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Error creating playlist", ex);
         }
     }
 
-
-    public void updatePlaylist(PlayList playlist) throws Exception {
+    public PlayList updatePlaylist(PlayList playlist) throws Exception {
         DBConnector dbConnector = new DBConnector();
         String sql = "UPDATE Playlists SET PlaylistTitle = ?, Creator = ? WHERE Playlist_id = ?";
-
-        try (Connection conn = dbConnector.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, String.valueOf(playlist.getId()));
-            stmt.setString(2, playlist.getPlayListName());
-            stmt.setString(3, playlist.getCreator());
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, playlist.getPlayListName());
+            stmt.setString(2, playlist.getCreator());
+            stmt.setInt(3, playlist.getId());
             stmt.executeUpdate();
+            return playlist;
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Error updating playlist", ex);
         }
-
     }
-
 
     public void deletePlayList(PlayList playlist) throws Exception {
         DBConnector dbConnector = new DBConnector();
         String sql = "DELETE FROM Playlists WHERE Playlist_id = ?";
-
-        try (Connection conn = dbConnector.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, playlist.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {

@@ -19,6 +19,8 @@ import tv.safte.truemytunes.BE.Song;
 import tv.safte.truemytunes.BLL.SongManager;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class myTunesController {
@@ -233,19 +235,52 @@ private void onAdd() {
     }
 
     @FXML
-    private void onNew() {
-        // Handle new playlist action
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/data/Musikdata.Nummere/1.mp3"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Add Playlist");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+private void onNew() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/tv/safte/truemytunes/AddPlaylist.fxml"));
+        Parent root = fxmlLoader.load();
+
+        // Get the controller and set the dialog stage
+        AddPlaylistController controller = fxmlLoader.getController();
+        Stage stage = new Stage();
+        controller.setDialogStage(stage);
+
+        stage.setTitle("Add Playlist");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
+        // Check if the save button was clicked
+        if (controller.isSaveClicked()) {
+            // Refresh the playlistsTable with the new playlist
+            loadPlaylists();
         }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
+    private void loadPlaylists() {
+    try {
+        // Fetch playlists from the data source
+        List<PlayList> playlists = fetchPlaylistsFromDataSource();
+
+        // Convert the list to an ObservableList
+        ObservableList<PlayList> observablePlaylists = FXCollections.observableArrayList(playlists);
+
+        // Set the ObservableList to the playlistsTable
+        playlistsTable.setItems(observablePlaylists);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+private List<PlayList> fetchPlaylistsFromDataSource() throws Exception {
+    // Implement the logic to fetch playlists from the data source
+    // This could be a database call or reading from a file
+    // For example:
+    // return playlistDAO.getAllPlaylists();
+    return new ArrayList<>(); // Placeholder
+}
 
     @FXML
     private void onEditPlaylist() {
